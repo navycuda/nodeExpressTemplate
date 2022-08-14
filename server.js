@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const methodOverride = require('method-override');
 const cookieSession = require('cookie-session');
 const tools = require('./tools');
+const TemplateVars = require('./TemplateVars');
 
 /* Tcp:Http */
 const tcpHttp = {
@@ -43,18 +44,20 @@ app.set('view engine', 'ejs');
  * tx = response
  */
 app.get('/', (rx, tx) => {
-  tx.render('index');
+  const templateVars = new TemplateVars('Index Page');
+  tx.render('index', templateVars);
 });
 app.get('*', (rx, tx) => {
+  const templateVars = new TemplateVars('Error!');
   tx.status(400);
-  tx.render('error');
+  tx.render('error', templateVars);
 });
 
 /**
  * ************** POST ************** *
  */
 app.post('*', (rx, tx) => {
-
+  
 });
 
 /* Execution & Test Data */
