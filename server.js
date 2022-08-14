@@ -46,7 +46,8 @@ app.get('/', (rx, tx) => {
   tx.render('index');
 });
 app.get('*', (rx, tx) => {
-  tx.statusCode(400).render('error');
+  tx.status(400);
+  tx.render('error');
 });
 
 /**
