@@ -57,6 +57,7 @@ app.get('*', (rx, tx) => {
  * ************** POST ************** *
  */
 app.post('*', (rx, tx) => {
+  console.log(`  > ${rx.ip}`);
   const templateVars = new TemplateVars('POST - Error!');
   tx.status(400);
   tx.render('error', templateVars);
