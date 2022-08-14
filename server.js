@@ -11,6 +11,7 @@ const tools = require('./tools');
 /* Tcp:Http */
 const tcpHttp = {
   Port: 8080,
+  host: 'localhost',
   cookieSession: {
     name: "enigmaSecure",
     keys: [ 'EKMFLGDQVZNTOWYHXUSPAIBRCJ', 'BDFHJLCPRTXVZNYEIWGAKMUSQO' ]
@@ -42,8 +43,20 @@ app.set('view engine', 'ejs');
  * tx = response
  */
 app.get('/', (rx, tx) => {
+  tx.render('index');
+});
+app.get('*', (rx, tx) => {
+  tx.statusCode(400).render('error');
+});
+
+/**
+ * ************** POST ************** *
+ */
+app.post('*', (rx, tx) => {
 
 });
 
 /* Execution & Test Data */
-/* Exports */
+app.listen(tcpHttp.Port, () => {
+  console.log(`Node Express server '${tcpHttp.host}' listening on port ${tcpHttp.Port}`)
+});
