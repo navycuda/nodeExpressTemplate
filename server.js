@@ -48,7 +48,7 @@ app.get('/', (rx, tx) => {
   tx.render('index', templateVars);
 });
 app.get('*', (rx, tx) => {
-  const templateVars = new TemplateVars('Error!');
+  const templateVars = new TemplateVars('GET - Error!');
   tx.status(400);
   tx.render('error', templateVars);
 });
@@ -57,10 +57,12 @@ app.get('*', (rx, tx) => {
  * ************** POST ************** *
  */
 app.post('*', (rx, tx) => {
-  
+  const templateVars = new TemplateVars('POST - Error!');
+  tx.status(400);
+  tx.render('error', templateVars);
 });
 
 /* Execution & Test Data */
 app.listen(tcpHttp.Port, () => {
-  console.log(`Node Express server '${tcpHttp.host}' listening on port ${tcpHttp.Port}`)
+  console.log(`Node Express server '${tcpHttp.host}' listening on port ${tcpHttp.Port}`);
 });
