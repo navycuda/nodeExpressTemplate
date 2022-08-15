@@ -9,6 +9,9 @@ const cookieSession = require('cookie-session');
 const tools = require('./tools');
 const TemplateVars = require('./TemplateVars');
 
+// routes
+const things = require('./routes/things');
+
 /* Tcp:Http */
 const tcpHttp = {
   Port: 8080,
@@ -27,6 +30,9 @@ app.use(cookieSession(tcpHttp.cookieSession));
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
+// setup routes
+app.use('/things', things);
+
 /* Endpoints */
 ///* Create */
 ///* Read */
@@ -40,27 +46,25 @@ app.set('view engine', 'ejs');
 
 /**
  * ************** GET ************** *
- * rx = request
- * tx = response
  */
-app.get('/', (rx, tx) => {
+app.get('/', (request, response) => {
   const templateVars = new TemplateVars('Index Page');
-  tx.render('index', templateVars);
+  response.render('index', templateVars);
 });
-app.get('*', (rx, tx) => {
+app.get('*', (request, response) => {
   const templateVars = new TemplateVars('GET - Error!');
-  tx.status(400);
-  tx.render('error', templateVars);
+  response.status(400);
+  response.render('error', templateVars);
 });
 
 /**
  * ************** POST ************** *
  */
-app.post('*', (rx, tx) => {
+app.post('*', (request, response) => {
   const templateVars = new TemplateVars('POST - Error!');
-  tx.status(400);
-  tx.render('error', templateVars);
-  console.log(`ERROR! POST '*' > ${rx.ip}`);
+  response.status(400);
+  response.render('error', templateVars);
+  console.log(`ERROR! POST '*' > ${request.ip}`);
 });
 
 /* Execution & Test Data */
